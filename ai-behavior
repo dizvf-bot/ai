@@ -1,0 +1,31 @@
+// AI Behavior utility functions
+
+/**
+ * Gets the appropriate system message based on selected behavior preset
+ * @param {string} behaviorType - Type of behavior preset
+ * @param {object} behaviorPresets - Available behavior presets
+ * @param {string} defaultMessage - Default system message
+ * @returns {string} The system message to use
+ */
+export function getSystemMessage(behaviorType, behaviorPresets, defaultMessage) {
+    return behaviorPresets[behaviorType] || defaultMessage;
+}
+
+/**
+ * Formats response text to ensure it's concise and readable
+ * This helps enforce the AI's direct communication style
+ * @param {string} text - The AI response text
+ * @returns {string} Formatted text
+ */
+export function formatAIResponse(text) {
+    // Remove redundant spaces and line breaks
+    const cleanedText = text.replace(/\s{2,}/g, ' ').trim();
+    
+    // Split into paragraphs and ensure they're not too long
+    const paragraphs = cleanedText.split(/\n{2,}/);
+    
+    return paragraphs
+        .map(p => p.trim())
+        .filter(p => p.length > 0)
+        .join('\n\n');
+}
